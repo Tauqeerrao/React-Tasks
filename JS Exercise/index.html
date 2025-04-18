@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Assessment Solutions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            background-color: #3498db;
+            color: white;
+            padding: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .card-body {
+            padding: 1.5rem;
+        }
+        .card-description {
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #2ecc71;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #27ae60;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>React Assessment Solutions</h1>
+    
+    <div class="card-container">
+        <div class="card">
+            <div class="card-header">Part 1: Data Transformation</div>
+            <div class="card-body">
+                <div class="card-description">
+                    Filter, transform, and sort user data to create a processed output.
+                </div>
+                <a href="PartA.html" class="btn">View Solution</a>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">Part 2: Async Data Fetching</div>
+            <div class="card-body">
+                <div class="card-description">
+                    Fetch user posts from an API and handle the asynchronous response.
+                </div>
+                <a href="PartB.html" class="btn">View Solution</a>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">Part 3: User Component</div>
+            <div class="card-body">
+                <div class="card-description">
+                    Create a reusable user profile component with conditional rendering.
+                </div>
+                <a href="PartC.html" class="btn">View Solution</a>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">Part 4: State Management</div>
+            <div class="card-body">
+                <div class="card-description">
+                    Implement a simple state management solution with subscriptions.
+                </div>
+                <a href="PartD.html" class="btn">View Solution</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        React Assessment Solutions - Created with modern styling and interactive examples
+    </div>
+</body>
+</html>

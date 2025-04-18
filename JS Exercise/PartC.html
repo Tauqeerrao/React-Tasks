@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Component</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+        .code-container {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        .result-container {
+            background-color: #e8f4f8;
+            padding: 1rem;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+            margin: 1.5rem 0;
+        }
+        pre {
+            margin: 0;
+        }
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .user-card {
+            display: flex;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 1rem 0;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .avatar {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+        .user-info {
+            padding: 1rem;
+            flex-grow: 1;
+        }
+        .user-info h2 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .badge.active {
+            background-color: #2ecc71;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Part 3: Creating a User Component</h1>
+    
+    <div class="code-container">
+        <pre><code>function createUserProfileHTML(user) {
+    return `
+        &lt;div class="user-card" id="user-${user.id}"&gt;
+            &lt;img
+                src="${user.avatar}"
+                alt="${user.firstName} ${user.lastName}"
+                class="avatar"
+            /&gt;
+            &lt;div class="user-info"&gt;
+                &lt;h2&gt;${user.firstName} ${user.lastName}&lt;/h2&gt;
+                &lt;p&gt;Email: ${user.email}&lt;/p&gt;
+                &lt;p&gt;Role: ${user.role}&lt;/p&gt;
+                ${user.isActive ? '&lt;span class="badge active"&gt;Active&lt;/span&gt;' : ''}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    `;
+}</code></pre>
+    </div>
+
+    <button class="btn" onclick="runPart3(true)">Show Active User</button>
+    <button class="btn" onclick="runPart3(false)">Show Inactive User</button>
+
+    <div class="result-container" id="result3">
+        <p>Click buttons above to see different user profiles.</p>
+    </div>
+
+    <script>
+        function createUserProfileHTML(user) {
+            return `
+                <div class="user-card" id="user-${user.id}">
+                    <img
+                        src="${user.avatar}"
+                        alt="${user.firstName} ${user.lastName}"
+                        class="avatar"
+                    />
+                    <div class="user-info">
+                        <h2>${user.firstName} ${user.lastName}</h2>
+                        <p>Email: ${user.email}</p>
+                        <p>Role: ${user.role}</p>
+                        ${user.isActive ? '<span class="badge active">Active</span>' : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        function runPart3(isActive) {
+            const user = {
+                id: 1,
+                firstName: "John",
+                lastName: "Doe",
+                email: "john@example.com",
+                avatar: "https://randomuser.me/api/portraits/men/1.jpg",
+                isActive: isActive,
+                role: isActive ? "Admin" : "Guest",
+            };
+
+            document.getElementById('result3').innerHTML = createUserProfileHTML(user);
+        }
+    </script>
+</body>
+</html>

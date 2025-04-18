@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State Management Helper</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+        .code-container {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        .result-container {
+            background-color: #e8f4f8;
+            padding: 1rem;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+            margin: 1.5rem 0;
+        }
+        pre {
+            margin: 0;
+        }
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .btn-danger {
+            background-color: #e74c3c;
+        }
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+        .btn-success {
+            background-color: #2ecc71;
+        }
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+        .state-log {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 0.5rem;
+            background-color: white;
+            border-radius: 4px;
+        }
+        .log-entry {
+            margin: 0.25rem 0;
+            padding: 0.25rem;
+            border-bottom: 1px solid #eee;
+        }
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Part 4: State Management Helper</h1>
+    
+    <div class="code-container">
+        <pre><code>function createStateManager(initialState) {
+    let state = { ...initialState };
+    let subscribers = [];
+
+    return {
+        getState: () => ({ ...state }),
+        setState: (newState) => {
+            state = { ...state, ...newState };
+            subscribers.forEach(callback => callback(state));
+        },
+        subscribe: (callback) => {
+            subscribers.push(callback);
+            return () => {
+                subscribers = subscribers.filter(sub => sub !== callback);
+            };
+        }
+    };
+}</code></pre>
+    </div>
+
+    <div>
+        <button class="btn" onclick="getCurrentState()">Get Current State</button>
+        <button class="btn btn-success" onclick="setOnlineTrue()">Set Online: true</button>
+        <button class="btn btn-danger" onclick="setOnlineFalse()">Set Online: false</button>
+        <button class="btn" onclick="setLastActive()">Set Last Active</button>
+        <button class="btn" onclick="addNewProperty()">Add New Property</button>
+    </div>
+
+    <div class="result-container">
+        <h3>State Changes Log:</h3>
+        <div class="state-log" id="stateLog">
+            <div class="log-entry">Initial state set.</div>
+        </div>
+    </div>
+
+    <script>
+        function createStateManager(initialState) {
+            let state = { ...initialState };
+            let subscribers = [];
+
+            return {
+                getState: () => ({ ...state }),
+                setState: (newState) => {
+                    state = { ...state, ...newState };
+                    subscribers.forEach(callback => callback(state));
+                },
+                subscribe: (callback) => {
+                    subscribers.push(callback);
+                    return () => {
+                        subscribers = subscribers.filter(sub => sub !== callback);
+                    };
+                }
+            };
+        }
+
+        // Initialize state manager
+        const userState = createStateManager({ 
+            name: "John", 
+            online: false 
+        });
+
+        // Subscribe to state changes
+        userState.subscribe((state) => {
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            logEntry.textContent = `State changed: ${JSON.stringify(state)}`;
+            document.getElementById('stateLog').appendChild(logEntry);
+            document.getElementById('stateLog').scrollTop = document.getElementById('stateLog').scrollHeight;
+        });
+
+        // Helper functions for buttons
+        function getCurrentState() {
+            const currentState = userState.getState();
+            alert(`Current state: ${JSON.stringify(currentState, null, 2)}`);
+        }
+
+        function setOnlineTrue() {
+            userState.setState({ online: true });
+        }
+
+        function setOnlineFalse() {
+            userState.setState({ online: false });
+        }
+
+        function setLastActive() {
+            const now = new Date().toISOString().split('T')[0];
+            userState.setState({ lastActive: now });
+        }
+
+        function addNewProperty() {
+            const randomValue = Math.floor(Math.random() * 100);
+            userState.setState({ [`property${randomValue}`]: `value${randomValue}` });
+        }
+    </script>
+</body>
+</html>
